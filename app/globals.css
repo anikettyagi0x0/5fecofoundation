@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Outfit:wght@300;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,66 +8,82 @@
 @layer base {
   html, body {
     @apply antialiased;
-    background-color: #f8fafc; /* Light grey-blue background */
-    color: #1e293b; /* Slate-800 for better readability */
+    /* Base background for NGO aesthetic */
+    background-color: #fdfdfb; 
+    color: #1e293b;
     overflow-x: hidden;
     font-family: 'Inter', sans-serif;
+    /* Essential for 3D depth perception */
+    perspective: 1500px;
+  }
+
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-/* Smooth Scrolling for the whole page */
-html {
-  scroll-behavior: smooth;
+@layer components {
+  /* Professional Navbar Glassmorphism */
+  .nav-glass {
+    background: rgba(10, 13, 8, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Logo Gradient for GlobalHope */
+  .Logo-text {
+    background: linear-gradient(90deg, #ffffff 0%, #a8c69f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* 3D Cube Structural Rules */
+  .preserve-3d {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .cube-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    /* Ensures high-end grid look */
+    background-image: radial-gradient(circle, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
 }
 
-/* Professional Soft Glassmorphism */
-.nav-glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-}
+@layer utilities {
+  /* THE HAMMER: Force hide scrollbar but keep scroll functional */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;     /* Firefox */
+  }
 
-/* Official Logo Gradient - Trust Blue to Teal */
-.Logo-text {
-  background: linear-gradient(90deg, #0f172a 0%, #2563eb 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-}
+  /* Support for older "no-scrollbar" calls */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Professional Primary Button */
-.button-primary {
-  background-color: #2563eb;
-  color: white;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
-}
-
-.button-primary:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.23);
-}
-
-/* Hide scrollbar but keep functionality */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  /* Grainy texture overlay from your previous sections */
+  .hero-grain::after {
+    content: '';
+    position: absolute; 
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.76' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 50;
+  }
 }

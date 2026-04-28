@@ -1,0 +1,426 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;500;600&display=swap");
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+.wrap {
+  --bg:           #fafaf8;
+  --fg:           #1a1a1a;
+  --muted:        #9a9a9a;
+  --accent:       #4d7c0f;
+  --card-bg:      #ffffff;
+  --card-border:  #e2e2de;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-body:    "Outfit", sans-serif;
+  --hairline:     0.0625rem;
+  --ui-inset:     2rem;
+  --nav-x:        calc(var(--ui-inset) + 0.125rem);
+  --reveal-dur:   0.55s;
+  --reveal-off:   0.75rem;
+  --z-ui:         10;
+
+  position:             relative;
+  width:                100%;
+  height:               100vh;
+  overflow-y:           scroll;
+  overflow-x:           hidden;
+  scrollbar-width:      none;
+  -ms-overflow-style:   none;
+  background:           var(--bg);
+  color:                var(--fg);
+  font-family:          var(--font-body);
+  isolation:            isolate;
+}
+
+.wrap::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Sticky 3-D cube ─────────────────────────────────────────────────────── */
+.sceneSticky {
+  position:        sticky;
+  top:             0;
+  height:          0;
+  z-index:         0;
+  pointer-events:  none;
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: center;
+  perspective:     1100px;
+}
+
+.cubePositioner {
+  transform: translateY(50vh) translateY(-50%);
+}
+
+.cube {
+  --s: min(74vw, 74vh, 560px);
+  width:           var(--s);
+  height:          var(--s);
+  transform-style: preserve-3d;
+  transform:       rotateX(90deg) rotateY(0deg);
+  will-change:     transform;
+}
+
+/* ── Cube faces ──────────────────────────────────────────────────────────── */
+.face {
+  position:            absolute;
+  inset:               0;
+  overflow:            hidden;
+  backface-visibility: hidden;
+  background:
+    repeating-linear-gradient(  0deg, rgba(0,0,0,.04) 0, rgba(0,0,0,.04) 1px, transparent 1px, transparent 48px),
+    repeating-linear-gradient( 90deg, rgba(0,0,0,.04) 0, rgba(0,0,0,.04) 1px, transparent 1px, transparent 48px),
+    #e8e8e4;
+}
+
+.face img {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  display:    block;
+}
+
+.face:has(img) .facePh {
+  display: none;
+}
+
+.facePh {
+  position:       absolute;
+  bottom:         1.5rem;
+  left:           1.75rem;
+  font-family:    var(--font-display);
+  font-size:      clamp(2rem, 8vw, 5rem);
+  letter-spacing: .04em;
+  color:          rgba(0, 0, 0, 0.07);
+  pointer-events: none;
+  user-select:    none;
+}
+
+.faceFront  { transform: translateZ(calc(var(--s) / 2)); }
+.faceBack   { transform: rotateY(180deg)  translateZ(calc(var(--s) / 2)); }
+.faceRight  { transform: rotateY(90deg)   translateZ(calc(var(--s) / 2)); }
+.faceLeft   { transform: rotateY(-90deg)  translateZ(calc(var(--s) / 2)); }
+.faceTop    { transform: rotateX(-90deg)  translateZ(calc(var(--s) / 2)); }
+.faceBottom { transform: rotateX(90deg)   translateZ(calc(var(--s) / 2)); }
+
+/* ── Sticky UI layer ─────────────────────────────────────────────────────── */
+.uiLayer {
+  position:       sticky;
+  top:            0;
+  height:         0;
+  z-index:        var(--z-ui);
+  pointer-events: none;
+}
+
+/* Scene dots – left-centre */
+.sceneStrip {
+  pointer-events: all;
+  position:       absolute;
+  left:           var(--nav-x);
+  top:            50vh;
+  translate:      -50% -50%;
+  display:        flex;
+  flex-direction: column;
+  gap:            .75rem;
+}
+
+.sceneDot {
+  position:      relative;
+  display:       block;
+  width:         .25rem;
+  height:        .25rem;
+  border-radius: 50%;
+  background:    #c8c8c4;
+  transition:    background .3s, scale .3s;
+  cursor:        pointer;
+}
+
+.sceneDot::before {
+  content:  "";
+  position: absolute;
+  inset:    -.2rem;
+}
+
+.sceneDotActive {
+  background: var(--accent);
+  scale:      1.8;
+}
+
+/* Face caption – bottom-centre */
+.faceCaption {
+  position:    absolute;
+  bottom:      var(--ui-inset);
+  left:        50%;
+  translate:   -50% 0;
+  text-align:  center;
+  user-select: none;
+}
+
+.faceCaptionNum {
+  font-size:        .58rem;
+  letter-spacing:   .28em;
+  color:            var(--accent);
+  text-transform:   uppercase;
+  margin-block-end: .15rem;
+  font-family:      var(--font-body);
+  font-weight:      600;
+}
+
+.faceCaptionName {
+  font-family:    var(--font-display);
+  font-size:      clamp(1.8rem, 5vw, 3.5rem);
+  letter-spacing: .08em;
+  color:          rgba(0, 0, 0, 0.1);
+  line-height:    1;
+}
+
+/* ── Scrollable sections ─────────────────────────────────────────────────── */
+.scrollContent {
+  position: relative;
+  z-index:  1;
+}
+
+.section {
+  min-height:  100vh;
+  display:     flex;
+  align-items: center;
+  padding:     6rem calc(5rem + var(--ui-inset)) 6rem 5rem;
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.textCard {
+  max-width:               24rem;
+  padding:                 2.5rem 2.25rem;
+  background:              var(--card-bg);
+  border:                  1px solid var(--card-border);
+  border-radius:           0.75rem;
+  backdrop-filter:         none;
+  -webkit-backdrop-filter: none;
+  overflow:                hidden;
+  box-shadow:              0 2px 8px rgba(0,0,0,0.04),
+                           0 12px 40px rgba(0,0,0,0.07);
+}
+
+.textCardRight {
+  margin-inline-start: auto;
+  border:              1px solid var(--card-border);
+  border-radius:       0.75rem;
+  text-align:          right;
+  box-shadow:          0 2px 8px rgba(0,0,0,0.04),
+                       0 12px 40px rgba(0,0,0,0.07);
+}
+
+.textCardRight .hLine {
+  transform-origin:    right;
+  margin-inline-start: auto;
+}
+
+.textCardRight .ctaRow {
+  justify-content: flex-end;
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+.tag {
+  font-size:        .58rem;
+  letter-spacing:   .32em;
+  text-transform:   uppercase;
+  color:            var(--accent);
+  margin-block-end: 1.1rem;
+  font-family:      var(--font-body);
+  font-weight:      600;
+}
+
+.h1 {
+  font-family:    var(--font-display);
+  font-weight:    400;
+  letter-spacing: .03em;
+  line-height:    .9;
+  font-size:      clamp(3rem, 8vw, 6.5rem);
+  color:          #111111;
+}
+
+.h2 {
+  font-family:    var(--font-display);
+  font-weight:    400;
+  letter-spacing: .03em;
+  line-height:    .9;
+  font-size:      clamp(2.4rem, 5vw, 4.2rem);
+  color:          #111111;
+}
+
+.bodyText {
+  font-size:          .8rem;
+  line-height:        1.9;
+  color:              #5a5a5a;
+  margin-block-start: 1.25rem;
+  font-weight:        300;
+  letter-spacing:     .015em;
+}
+
+/* ── Stats ───────────────────────────────────────────────────────────────── */
+.statRow {
+  display:            flex;
+  gap:                2.5rem;
+  margin-block-start: 2rem;
+  flex-wrap:          wrap;
+}
+
+.stat {
+  display:        flex;
+  flex-direction: column;
+  gap:            .15rem;
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-size:   2.4rem;
+  color:       var(--accent);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size:      .54rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color:          var(--muted);
+  font-weight:    600;
+}
+
+/* ── Divider line ────────────────────────────────────────────────────────── */
+.hLine {
+  width:            3.125rem;
+  height:           var(--hairline);
+  background:       var(--accent);
+  margin-block-end: 1.25rem;
+  transform-origin: left;
+}
+
+/* ── CTA buttons ─────────────────────────────────────────────────────────── */
+.ctaRow {
+  display:            flex;
+  align-items:        center;
+  justify-content:    flex-start;
+  gap:                .75rem;
+  margin-block-start: 1.75rem;
+}
+
+.cta {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             .6rem;
+  padding:         .65rem 1.4rem;
+  border:          var(--hairline) solid var(--accent);
+  color:           var(--accent);
+  font-family:     var(--font-body);
+  font-weight:     600;
+  font-size:       .58rem;
+  letter-spacing:  .24em;
+  text-transform:  uppercase;
+  text-decoration: none;
+  cursor:          pointer;
+  transition:      background .25s, color .25s;
+}
+
+.cta:hover {
+  background: var(--accent);
+  color:      var(--bg);
+}
+
+.cta svg {
+  width:  .6875rem;
+  height: .6875rem;
+}
+
+.ctaBack {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             .6rem;
+  padding:         .65rem 1.4rem;
+  border:          var(--hairline) solid #d0d0cc;
+  color:           var(--muted);
+  font-family:     var(--font-body);
+  font-weight:     600;
+  font-size:       .58rem;
+  letter-spacing:  .24em;
+  text-transform:  uppercase;
+  text-decoration: none;
+  transition:      background .25s, color .25s, border-color .25s;
+}
+
+.ctaBack:hover {
+  background:   #f0f0ec;
+  border-color: #b0b0aa;
+  color:        var(--fg);
+}
+
+.ctaBack svg {
+  width:  .6875rem;
+  height: .6875rem;
+}
+
+/* ── Reveal animations ───────────────────────────────────────────────────── */
+.tag,
+.h1,
+.h2,
+.bodyText,
+.statRow,
+.cta,
+.ctaBack {
+  opacity:   0;
+  translate: 0 var(--reveal-off);
+}
+
+.h1,
+.h2 {
+  translate:  0 1.25rem;
+  transition: opacity var(--reveal-dur) ease .08s, translate var(--reveal-dur) ease .08s;
+}
+
+.tag {
+  transition: opacity var(--reveal-dur) ease, translate var(--reveal-dur) ease;
+}
+
+.bodyText {
+  transition: opacity var(--reveal-dur) ease .2s, translate var(--reveal-dur) ease .2s;
+}
+
+.statRow {
+  transition: opacity var(--reveal-dur) ease .3s, translate var(--reveal-dur) ease .3s;
+}
+
+.cta,
+.ctaBack {
+  transition:
+    opacity      var(--reveal-dur) ease .35s,
+    translate    var(--reveal-dur) ease .35s,
+    background   .25s,
+    color        .25s,
+    border-color .25s;
+}
+
+.hLine {
+  opacity:    0;
+  scale:      0 1;
+  transition: opacity .45s ease, scale .45s ease;
+}
+
+/* visible – toggled by IntersectionObserver via styles.visible */
+.visible {
+  opacity:   1 !important;
+  translate: 0 0 !important;
+  scale:     1 1 !important;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (width <= 56.25em) {
+  .sceneStrip    { display: none; }
+  .faceCaption   { bottom: 1rem; }
+  .section       { min-height: 150vh; align-items: flex-end; padding: 0 1.5rem 3.5rem; }
+  .section:first-child { min-height: 100vh; align-items: center; padding: 4rem 1.5rem; }
+  .textCard,
+  .textCardRight { max-width: 100%; padding: 1.75rem 1.25rem; }
+  .bodyText      { line-height: 1.65; }
+  .statRow       { gap: 1.5rem; margin-block-start: 1.25rem; }
+  .ctaRow        { margin-block-start: 1.25rem; }
+}
