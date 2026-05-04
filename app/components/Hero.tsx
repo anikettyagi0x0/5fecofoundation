@@ -17,14 +17,12 @@ const HeroSection = () => {
 
   const { scrollY } = useScroll();
   const smoothY = useSpring(scrollY, { stiffness: 80, damping: 25 });
-  
-  // Parallax layers
+
   const bgY = useTransform(smoothY, [0, 800], ["0%", "15%"]);
   const textY = useTransform(smoothY, [0, 800], ["0%", "12%"]);
-  // Elephant moves UP slightly as we scroll to cover more text
-  const subjectY = useTransform(smoothY, [0, 800], ["0%", "-8%"]); 
+  const subjectY = useTransform(smoothY, [0, 800], ["0%", "-8%"]);
 
-  const title = "INDONESIA";
+  const title = "SANRAKSH";
 
   if (!mounted) return <div className="h-screen bg-[#0a0d08]" />;
 
@@ -35,34 +33,32 @@ const HeroSection = () => {
     >
       {/* ── LAYER 1: Background ── */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY, scale: 1.05 }}>
-        <img 
-          src="/hero/5feco-website-4.png" 
-          className="w-full h-full object-cover opacity-60 grayscale-[20%] contrast-[110%]" 
-          alt="" 
+        <img
+          src="/hero/5feco-website-4.png"
+          className="w-full h-full object-cover opacity-30 grayscale-[20%] contrast-[110%]"
+          alt=""
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0a0d08]" />
       </motion.div>
 
-      {/* ── LAYER 2: Heading (Lower Z-Index) ── */}
-      <motion.div 
-        className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none" 
+      {/* ── LAYER 2: SOLID HEADING (Behind Elephant) ── */}
+      <motion.div
+        // FIX 1: Used padding-bottom (pb) to push the text up safely without transform conflicts
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none pb-[12vh] md:pb-[18vh]"
         style={{ y: textY }}
       >
-        <motion.span 
-          initial={{ opacity: 0, y: 15 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ delay: 0.8, duration: 1 }} 
-          className="text-[#a8c69f] font-[family-name:var(--font-outfit)] text-[clamp(12px,1.2vw,16px)] uppercase tracking-[1.5em] mb-4 ml-[1.5em] drop-shadow-2xl"
+        <span
+          className="text-[clamp(10px,1.2vw,14px)] uppercase tracking-[1em] mb-6 md:mb-10 ml-[1em] opacity-0"
         >
-          Preserving the Wild
-        </motion.span>
-        
+          5F ECO FOUNDATION OF INDIA
+        </span>
+
         <div className="flex select-none">
           {title.split("").map((char, i) => (
-            <motion.span 
-              key={i} 
-              initial={{ opacity: 0, y: 40 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + i * 0.05, duration: 1 }}
               className="text-[clamp(100px,24vw,340px)] leading-[0.75] text-white font-[family-name:var(--font-bebas)]"
             >
@@ -72,30 +68,61 @@ const HeroSection = () => {
         </div>
       </motion.div>
 
-      {/* ── LAYER 3: Elephant (Higher Z-Index + Positioned Over Text) ── */}
-      <motion.div 
-        className="absolute inset-0 z-20 flex items-end justify-center pointer-events-none" 
+      {/* ── LAYER 3: ELEPHANT (Middle Layer) ── */}
+      <motion.div
+        // FIX 2: Used padding-top (pt) on the container to push the elephant down safely
+        className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none pt-[18vh] md:pt-[28vh]"
         style={{ y: subjectY }}
       >
-        <motion.div 
-          initial={{ y: 100, opacity: 0 }} 
-          animate={{ y: 0, opacity: 1 }} 
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          // Shifted UP slightly to cover the middle of the heading
-          className="w-[clamp(300px,58vw,850px)] mb-[-5vh] md:mb-[-8vh]"
+          // Removed translate-y from here since Framer overrides it
+          className="w-[clamp(350px,58vw,850px)]"
         >
-          <img 
-            src="/hero/5feco-website-3.png" 
-            className="w-full h-auto drop-shadow-[0_40px_100px_rgba(0,0,0,0.9)]" 
-            alt="Elephant" 
+          <img
+            src="/hero/elephant-hero-image.png"
+            className="w-full h-auto opacity-[0.95] drop-shadow-[0_15px_25px_rgba(0,0,0,0.5)]"
+            alt="Elephant"
           />
         </motion.div>
       </motion.div>
 
-      {/* ── LAYER 4: Dashboard UI ── */}
-      <div className="absolute bottom-0 left-0 w-full z-30 px-6 md:px-14 pb-10">
+      {/* ── LAYER 4: OUTLINE HEADING & SUBHEADING (In Front of Elephant) ── */}
+      <motion.div
+        // Matches Layer 2 padding perfectly
+        className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none pb-[12vh] md:pb-[18vh]"
+        style={{ y: textY }}
+      >
+        <motion.span
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="text-[#cbf1ba] font-semibold font-[family-name:var(--font-outfit)] text-[clamp(10px,1.2vw,14px)] uppercase tracking-[1em] mb-6 md:mb-10 ml-[1em] drop-shadow-[0_0_12px_rgba(168,198,159,0.5)]"
+        >
+          5F ECO FOUNDATION OF INDIA
+        </motion.span>
+
+        <div className="flex select-none">
+          {title.split("").map((char, i) => (
+            <motion.span
+              key={`outline-${i}`}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 + i * 0.05, duration: 1 }}
+              className="text-[clamp(100px,24vw,340px)] leading-[0.75] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.8)] font-[family-name:var(--font-bebas)]"
+            >
+              {char}
+            </motion.span>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ── LAYER 5: Dashboard UI ── */}
+      <div className="absolute bottom-0 left-0 w-full z-40 px-6 md:px-14 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 items-end gap-12 border-t border-white/10 pt-10 backdrop-blur-[2px]">
-          
+
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#4d7c0f] shadow-[0_0_10px_#4d7c0f]" />
@@ -129,6 +156,7 @@ const HeroSection = () => {
         </div>
       </div>
 
+      {/* ── LAYER 6: Grain overlay ── */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50" />
     </section>
   );

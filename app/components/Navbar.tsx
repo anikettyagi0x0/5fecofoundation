@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaHeart, FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
 import { GiOakLeaf } from "react-icons/gi";
 
 const Navbar = () => {
@@ -36,13 +36,17 @@ const Navbar = () => {
       {/* Container with increased max-width and wider padding to prevent squeezing */}
       <div className="max-w-[1440px] mx-auto px-8 md:px-12 flex items-center">
         
-        {/* 1. LOGO AREA */}
+        {/* 1. LOGO AREA - Fixed the broken div tags here! */}
         <div className="flex items-center gap-4 cursor-pointer group shrink-0">
-          <div className="relative w-11 h-11 bg-[#4d7c0f] rounded-sm flex items-center justify-center transition-all group-hover:bg-[#a8c69f] group-hover:-rotate-6 shadow-2xl">
-            <FaHeart className="text-white text-base" />
+          <div className="relative w-11 h-11 bg-[#4d7c0f] rounded-sm flex items-center justify-center transition-all group-hover:bg-[#a8c69f] group-hover:-rotate-6 shadow-2xl overflow-hidden">
+            <img 
+              src="/logo-5feco.jpeg" 
+              alt="5F Eco Foundation of India" 
+              className="w-7 h-7 object-contain" 
+            />
           </div>
           <span className="text-xl tracking-[0.25em] font-bold text-white uppercase font-[family-name:var(--font-outfit)]">
-            GLOBAL<span className="font-light text-[#a8c69f] opacity-80">HOPE</span>
+            GLOBAL<span className="font-light text-[#a8c69f] opacity-80">India</span>
           </span>
         </div>
 

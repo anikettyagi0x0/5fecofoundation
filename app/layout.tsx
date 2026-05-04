@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Vagnox - A VAPT AGENT",
+  title: "5fecofoundation",
   description: "Market intelligence terminal for salon lead generation",
 };
 
