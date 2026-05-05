@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Bebas_Neue, Outfit } from "next/font/google";
 
 const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
-const outfit = Outfit({ weight: ["300", "500", "600"], subsets: ["latin"], variable: "--font-outfit" });
+const outfit = Outfit({ weight: ["300", "500", "600", "700"], subsets: ["latin"], variable: "--font-outfit" });
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,16 +43,10 @@ const HeroSection = () => {
 
       {/* ── LAYER 2: SOLID HEADING (Behind Elephant) ── */}
       <motion.div
-        // FIX 1: Used padding-bottom (pb) to push the text up safely without transform conflicts
         className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none pb-[12vh] md:pb-[18vh]"
         style={{ y: textY }}
       >
-        <span
-          className="text-[clamp(10px,1.2vw,14px)] uppercase tracking-[1em] mb-6 md:mb-10 ml-[1em] opacity-0"
-        >
-          5F ECO FOUNDATION OF INDIA
-        </span>
-
+        {/* Original size perfectly preserved */}
         <div className="flex select-none">
           {title.split("").map((char, i) => (
             <motion.span
@@ -70,7 +64,6 @@ const HeroSection = () => {
 
       {/* ── LAYER 3: ELEPHANT (Middle Layer) ── */}
       <motion.div
-        // FIX 2: Used padding-top (pt) on the container to push the elephant down safely
         className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none pt-[18vh] md:pt-[28vh]"
         style={{ y: subjectY }}
       >
@@ -78,7 +71,6 @@ const HeroSection = () => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          // Removed translate-y from here since Framer overrides it
           className="w-[clamp(350px,58vw,850px)]"
         >
           <img
@@ -91,19 +83,10 @@ const HeroSection = () => {
 
       {/* ── LAYER 4: OUTLINE HEADING & SUBHEADING (In Front of Elephant) ── */}
       <motion.div
-        // Matches Layer 2 padding perfectly
         className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none pb-[12vh] md:pb-[18vh]"
         style={{ y: textY }}
       >
-        <motion.span
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="text-[#cbf1ba] font-semibold font-[family-name:var(--font-outfit)] text-[clamp(10px,1.2vw,14px)] uppercase tracking-[1em] mb-6 md:mb-10 ml-[1em] drop-shadow-[0_0_12px_rgba(168,198,159,0.5)]"
-        >
-          5F ECO FOUNDATION OF INDIA
-        </motion.span>
-
+        {/* Original size perfectly preserved */}
         <div className="flex select-none">
           {title.split("").map((char, i) => (
             <motion.span
@@ -125,12 +108,11 @@ const HeroSection = () => {
 
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#4d7c0f] shadow-[0_0_10px_#4d7c0f]" />
-              <span className="text-[9px] text-[#a8c69f] uppercase tracking-[0.5em] font-bold">Conservation Live</span>
+              <span className="text-[9px] text-[#a8c69f] uppercase tracking-[0.5em] font-bold">Working for Wildlife & Nature</span>
             </div>
             <div>
-              <h4 className="text-3xl text-white font-[family-name:var(--font-bebas)] tracking-widest">12,480 Hectares</h4>
-              <p className="text-white/40 text-[9px] uppercase tracking-[0.3em] mt-1">Forest Canopy Monitored 2026</p>
+              <h4 className="text-3xl text-white font-[family-name:var(--font-bebas)] tracking-widest">5F Eco Foundation of india</h4>
+              <p className="text-white/40 text-[9px] uppercase tracking-[0.3em] mt-1">Rescue • Conservation • Restoration</p>
             </div>
           </div>
 
@@ -148,7 +130,7 @@ const HeroSection = () => {
               ))}
             </div>
             <div className="text-right">
-              <p className="text-white font-bold text-xs tracking-[0.1em]">Join 40k+ Guardians</p>
+              <p className="text-white font-bold text-xs tracking-[0.1em]">Join Our Mission</p>
               <p className="text-white/20 text-[9px] uppercase tracking-[0.2em] mt-1">Global Wildlife Network</p>
             </div>
           </div>

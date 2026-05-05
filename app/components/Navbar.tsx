@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
 import { GiOakLeaf } from "react-icons/gi";
 
 const Navbar = () => {
@@ -27,77 +26,64 @@ const Navbar = () => {
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
+      // Reverted to full-width edge-to-edge design
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 border-b ${
         scrolled 
-          ? "bg-[#0a0d08]/95 backdrop-blur-2xl border-b border-[#4d7c0f]/20 py-3" 
-          : "bg-transparent py-6"
+          ? "bg-[#0a0d08]/90 backdrop-blur-xl border-[#4d7c0f]/30 shadow-2xl py-3 md:py-4" 
+          : "bg-transparent border-transparent py-5 md:py-6"
       }`}
     >
-      {/* Container with increased max-width and wider padding to prevent squeezing */}
-      <div className="max-w-[1440px] mx-auto px-8 md:px-12 flex items-center">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between">
         
-        {/* 1. LOGO AREA - Fixed the broken div tags here! */}
-        <div className="flex items-center gap-4 cursor-pointer group shrink-0">
-          <div className="relative w-11 h-11 bg-[#4d7c0f] rounded-sm flex items-center justify-center transition-all group-hover:bg-[#a8c69f] group-hover:-rotate-6 shadow-2xl overflow-hidden">
+        {/* 1. LOGO AREA */}
+        <div className="flex items-center gap-3 md:gap-4 cursor-pointer group shrink-0">
+          
+          <div className="relative w-14 h-14 md:w-16 md:h-16 min-w-[56px] min-h-[56px] md:min-w-[64px] md:min-h-[64px] flex items-center justify-center transition-transform duration-500 group-hover:scale-105 rounded-full overflow-hidden bg-transparent">
             <img 
               src="/logo-5feco.jpeg" 
               alt="5F Eco Foundation of India" 
-              className="w-7 h-7 object-contain" 
+              className="w-full h-full object-contain scale-110" 
             />
           </div>
-          <span className="text-xl tracking-[0.25em] font-bold text-white uppercase font-[family-name:var(--font-outfit)]">
-            GLOBAL<span className="font-light text-[#a8c69f] opacity-80">India</span>
-          </span>
+
+          <div className="flex flex-col justify-center pl-1 md:pl-2">
+            <span className="text-[22px] md:text-[28px] tracking-[0.15em] font-extrabold text-white uppercase leading-none font-[family-name:var(--font-outfit)] drop-shadow-md">
+              5F ECO
+            </span>
+            <span className="text-[9px] md:text-[11px] font-medium text-[#a8c69f] tracking-[0.3em] uppercase mt-1.5 drop-shadow-sm">
+              Foundation of India
+            </span>
+          </div>
+
         </div>
 
-        {/* 2. SPACER (Pushes links to the center/right) */}
-        <div className="flex-1" />
-
-        {/* 3. NAVIGATION LINKS (Using flexible gap) */}
-        <div className="hidden xl:flex items-center gap-x-10">
+        {/* 2. NAVIGATION LINKS */}
+        <div className="hidden lg:flex items-center gap-x-8 xl:gap-x-12 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-[11px] uppercase tracking-[0.35em] font-bold text-white/90 hover:text-[#a8c69f] transition-all duration-300"
-              style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}
+              className="text-[11px] uppercase tracking-[0.25em] font-semibold text-white/90 hover:text-[#a8c69f] transition-colors duration-300 relative group drop-shadow-md"
             >
               {link.name}
+              <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-[#a8c69f] transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100 rounded-full"></span>
             </a>
           ))}
         </div>
 
-        {/* 4. SPACER */}
-        <div className="flex-1 max-w-[60px]" />
-
-        {/* 5. ACTION AREA (Socials + Button) */}
-        <div className="flex items-center gap-8 shrink-0">
-          
-          {/* Social Icons with individualized spacing */}
-          <div className="hidden lg:flex items-center gap-4 border-r border-white/10 pr-8">
-            {[FaTwitter, FaLinkedin, FaFacebook].map((Icon, idx) => (
-              <a 
-                key={idx} 
-                href="#" 
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-black/40 border border-white/10 text-white hover:bg-[#4d7c0f] transition-all duration-300 backdrop-blur-md"
-              >
-                <Icon className="text-sm" />
-              </a>
-            ))}
-          </div>
-
-          {/* Advanced Forest CTA */}
+        {/* 3. ACTION AREA */}
+        <div className="flex items-center shrink-0">
           <motion.button 
             whileHover="hover"
             initial="initial"
-            className="group relative overflow-hidden bg-white px-8 py-3.5 rounded-none shadow-2xl"
+            className="group relative overflow-hidden bg-white/10 border border-white/20 hover:border-transparent px-6 py-2.5 md:px-8 md:py-3.5 rounded-full shadow-lg transition-all duration-300"
           >
-            <div className="absolute inset-0 bg-[#4d7c0f] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500" />
-            <div className="relative flex items-center gap-3">
-               <span className="text-[10px] font-black uppercase tracking-[0.25em] text-black group-hover:text-white transition-colors">
-                 Support Mission
+            <div className="absolute inset-0 bg-[#4d7c0f] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+            <div className="relative flex items-center gap-2.5">
+               <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-colors">
+                 Support
                </span>
-               <GiOakLeaf className="text-[#4d7c0f] group-hover:text-white transition-colors" size={18} />
+               <GiOakLeaf className="text-[#a8c69f] group-hover:text-white transition-colors" size={16} />
             </div>
           </motion.button>
         </div>
