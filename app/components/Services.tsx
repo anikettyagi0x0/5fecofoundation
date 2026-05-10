@@ -252,7 +252,7 @@ export default function WhatWeDo() {
           animation: spin-slow 20s linear infinite;
         }
 
-        /* ── Node bloom: springs out from center, gentle overshoot ── */
+        /* ── Node bloom ── */
         @keyframes nodeBloom {
           0%   { transform: scale(0.01); opacity: 0; }
           55%  { opacity: 1; }
@@ -304,14 +304,12 @@ export default function WhatWeDo() {
         .label-pill-text {
           transition: fill 0.2s ease;
         }
-        /* Arrow nudge on hover */
         .label-arrow {
           transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
           transform-box: fill-box;
           transform-origin: center;
         }
 
-        /* ── Node group: hover lifts the whole group ── */
         .wwd-node {
           cursor: pointer;
           transition: filter 0.3s ease;
@@ -351,7 +349,6 @@ export default function WhatWeDo() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
-                {/* Hub shadows & gradients */}
                 <filter id="hub-shadow" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="12" stdDeviation="16" floodColor="#000" floodOpacity="0.12" />
                   <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.08" />
@@ -367,7 +364,6 @@ export default function WhatWeDo() {
                   <stop offset="100%" stopColor="#000000" stopOpacity="0.05" />
                 </linearGradient>
 
-                {/* Per-service glow */}
                 {services.map((s) => (
                   <radialGradient key={`grad-${s.id}`} id={`grad-${s.id}`} cx="50%" cy="50%" r="50%">
                     <stop offset="0%"   stopColor={s.color} stopOpacity="0.22" />
@@ -375,7 +371,6 @@ export default function WhatWeDo() {
                   </radialGradient>
                 ))}
 
-                {/* Connector gradients */}
                 {services.map((s) => {
                   const end = getPos(s.angle, RADIUS - 60);
                   return (
@@ -391,7 +386,6 @@ export default function WhatWeDo() {
                   );
                 })}
 
-                {/* Vignette mask for the map */}
                 <radialGradient id="map-vignette" cx="50%" cy="50%" r="50%">
                   <stop offset="0%"   stopColor="white" stopOpacity="1" />
                   <stop offset="60%"  stopColor="white" stopOpacity="0.85" />
@@ -461,26 +455,16 @@ export default function WhatWeDo() {
                 const isLeft   = pos.x < CX - 30;
                 const isRight  = pos.x > CX + 30;
 
-                // Card dimensions — slightly taller for breathing room
-                const cardW  = 200;
+                // THE FIX: Wide enough to fit text, giving it breathing room
+                const cardW  = 240; 
                 const cardH  = 40;
                 const cardRx = 6;
 
-                // Card x origin
                 const cardX = isLeft
                   ? labelPos.x - cardW + 8
                   : isRight
                   ? labelPos.x - 8
                   : labelPos.x - cardW / 2;
-
-                // Icon x anchor in card
-                const iconAreaW = 32;
-                const iconX = cardX + 10;
-                const iconCX = iconX + iconAreaW / 2 - 4;
-
-                // Text area
-                const textX = cardX + iconAreaW + 14;
-                const textW = cardW - iconAreaW - 24;
 
                 return (
                   <g
@@ -500,7 +484,6 @@ export default function WhatWeDo() {
                           : { opacity: 0, transform: "scale(0.01)", transformOrigin: `${CX}px ${CY}px` }
                       }
                     >
-                      {/* Glow */}
                       <circle
                         className="node-glow-circle"
                         cx={pos.x} cy={pos.y}
@@ -512,8 +495,6 @@ export default function WhatWeDo() {
                             : undefined
                         }
                       />
-
-                      {/* Outer ring */}
                       <circle
                         className="node-outer-ring"
                         cx={pos.x} cy={pos.y}
@@ -522,8 +503,6 @@ export default function WhatWeDo() {
                         stroke={s.color}
                         strokeWidth={isHov ? 2.5 : 1.5}
                       />
-
-                      {/* Inner tint */}
                       <circle
                         className="node-inner-fill"
                         cx={pos.x} cy={pos.y}
@@ -531,8 +510,6 @@ export default function WhatWeDo() {
                         fill={s.color}
                         fillOpacity={isHov ? 0.14 : 0.07}
                       />
-
-                      {/* Icon */}
                       <g
                         fill={s.color}
                         stroke={s.color}
@@ -553,7 +530,6 @@ export default function WhatWeDo() {
                           : { opacity: 0 }
                       }
                     >
-                      {/* Card background */}
                       <rect
                         className="label-pill-rect"
                         x={cardX}
@@ -570,8 +546,6 @@ export default function WhatWeDo() {
                             : "drop-shadow(0 2px 8px rgba(0,0,0,0.06))",
                         }}
                       />
-
-                      {/* Left color accent bar */}
                       <rect
                         x={cardX}
                         y={labelPos.y - cardH / 2}
@@ -585,8 +559,6 @@ export default function WhatWeDo() {
                           transition: "fill-opacity 0.25s ease",
                         }}
                       />
-
-                      {/* Round the left side of accent bar corners */}
                       <rect
                         x={cardX}
                         y={labelPos.y - cardH / 2}
@@ -598,11 +570,12 @@ export default function WhatWeDo() {
                         style={{ transition: "fill-opacity 0.25s ease" }}
                       />
 
-                      {/* Service label text */}
+                      {/* THE MAGIC FIX: `textAnchor="start"` completely stops the text from bleeding backward over the green bar! */}
                       <text
-                        x={textX}
+                        x={cardX + 16} 
                         y={labelPos.y + 1}
                         dominantBaseline="middle"
+                        textAnchor="start" 
                         fontSize={11}
                         fontWeight={isHov ? 600 : 500}
                         fontFamily="Inter, sans-serif"
@@ -613,12 +586,12 @@ export default function WhatWeDo() {
                         {s.label}
                       </text>
 
-                      {/* Arrow indicator */}
+                      {/* THE MAGIC FIX: `textAnchor="end"` places the arrow perfectly against the right border */}
                       <text
                         x={cardX + cardW - 14}
                         y={labelPos.y + 1}
                         dominantBaseline="middle"
-                        textAnchor="middle"
+                        textAnchor="end"
                         fontSize={11}
                         fill={s.color}
                         className="label-arrow"
@@ -635,7 +608,7 @@ export default function WhatWeDo() {
                 );
               })}
 
-              {/* ── Center hub (unchanged) ── */}
+              {/* ── Center hub ── */}
               <g
                 style={{
                   transformOrigin: `${CX}px ${CY}px`,

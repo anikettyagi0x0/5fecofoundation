@@ -11,7 +11,7 @@ const stories = [
     date: "05.2026",
     tag: "Rescue",
     description: "A leopard was safely rescued in Agra by 5F ECO Foundation of India, ensuring its protection and return to a natural habitat",
-    mediaUrl: "leopard-rescue-agra.png", 
+    mediaUrl: "leopard-rescue-agra.png",
     videoUrl: "https://vimeo.com/1189050514?share=copy&fl=sv&fe=ci",
     type: "video",
     duration: "2:45",
@@ -32,7 +32,7 @@ const stories = [
     tag: "Conservation",
     description: "Using drone surveillance and acoustic deterrence, we successfully redirected a herd of 14 elephants away from a busy agricultural sector.",
     mediaUrl: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=800&auto=format&fit=crop",
-    videoUrl: "https://vimeo.com/showcase/example", // Replace with your actual video link
+    videoUrl: "https://vimeo.com/showcase/example",
     type: "video",
     duration: "5:12",
   },
@@ -64,16 +64,12 @@ export default function ForestUI() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Navbar scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Intersection Observer for scroll-reveal animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -84,15 +80,13 @@ export default function ForestUI() {
       },
       { threshold: 0.1 }
     );
-
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // Smooth scroll handler for the navigation buttons
   const scroll = (direction: "left" | "right") => {
     if (rightScrollRef.current) {
-      const scrollAmount = 420; 
+      const scrollAmount = 420;
       rightScrollRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -105,16 +99,15 @@ export default function ForestUI() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
-        /* Global Reset */
         .premium-ui * { box-sizing: border-box; margin: 0; padding: 0; }
         .premium-ui {
           font-family: 'Inter', sans-serif;
-          background: #fdfdfc; 
+          background: #fdfdfc;
           color: #111;
           min-height: 100vh;
         }
 
-        /* ─── Modern Glassmorphic Navbar ─── */
+        /* ─── Navbar ─── */
         .modern-nav {
           position: fixed;
           top: 0; left: 0; right: 0;
@@ -125,11 +118,10 @@ export default function ForestUI() {
           padding: 0 40px;
           z-index: 100;
           transition: all 0.4s ease;
-          background: ${scrolled ? 'rgba(253, 253, 252, 0.85)' : 'transparent'};
-          backdrop-filter: ${scrolled ? 'blur(16px)' : 'none'};
-          border-bottom: 1px solid ${scrolled ? 'rgba(0,0,0,0.05)' : 'transparent'};
+          background: ${scrolled ? "rgba(253, 253, 252, 0.85)" : "transparent"};
+          backdrop-filter: ${scrolled ? "blur(16px)" : "none"};
+          border-bottom: 1px solid ${scrolled ? "rgba(0,0,0,0.05)" : "transparent"};
         }
-
         .nav-brand {
           display: flex;
           align-items: center;
@@ -140,16 +132,8 @@ export default function ForestUI() {
           color: #1a2e1a;
           text-decoration: none;
         }
-        .nav-brand svg {
-          width: 24px; height: 24px;
-          fill: #2e7d32;
-        }
-
-        .nav-links {
-          display: flex;
-          gap: 32px;
-          list-style: none;
-        }
+        .nav-brand svg { width: 24px; height: 24px; fill: #2e7d32; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-link {
           font-size: 14px;
           font-weight: 500;
@@ -171,7 +155,6 @@ export default function ForestUI() {
           border-radius: 2px;
         }
         .nav-link:hover::after { width: 100%; }
-
         .nav-cta {
           background: #1a2e1a;
           color: #fff;
@@ -179,7 +162,7 @@ export default function ForestUI() {
           font-size: 14px;
           font-weight: 500;
           padding: 12px 28px;
-          border-radius: 50px; /* Fully curved pill shape */
+          border-radius: 50px;
           transition: all 0.3s ease;
         }
         .nav-cta:hover {
@@ -190,7 +173,7 @@ export default function ForestUI() {
 
         /* ─── Stories Section ─── */
         .editorial-section {
-          padding: 160px 0 120px 40px; /* Pushed down to clear the fixed navbar */
+          padding: 160px 0 120px 40px;
           position: relative;
           overflow: hidden;
         }
@@ -199,7 +182,7 @@ export default function ForestUI() {
           max-width: 1600px;
           margin: 0 auto;
           display: flex;
-          align-items: center; 
+          align-items: center;
           gap: 60px;
         }
 
@@ -236,10 +219,7 @@ export default function ForestUI() {
           margin-bottom: 24px;
           letter-spacing: -0.02em;
         }
-        .editorial-h2 em {
-          font-style: italic;
-          color: #2e7d32;
-        }
+        .editorial-h2 em { font-style: italic; color: #2e7d32; }
 
         .editorial-desc {
           font-size: 16px;
@@ -250,11 +230,14 @@ export default function ForestUI() {
           margin-bottom: 40px;
         }
 
-        /* Nav Controls */
+        /* ─── Controls row: arrows + button ─── */
         .ed-controls {
           display: flex;
+          align-items: center;
           gap: 16px;
+          flex-wrap: wrap;
         }
+
         .ed-btn {
           width: 48px;
           height: 48px;
@@ -275,49 +258,73 @@ export default function ForestUI() {
           box-shadow: 0 8px 16px rgba(46, 125, 50, 0.15);
         }
         .ed-btn:hover svg { fill: #fff; }
-        .ed-btn.left:hover svg { transform: translateX(-2px); }
+        .ed-btn.left:hover svg  { transform: translateX(-2px); }
         .ed-btn.right:hover svg { transform: translateX(2px); }
 
-        /* ─── Right Side (Invisible Scroll Track) ─── */
+        /* ─── View Our Stories button ─── */
+        .ed-view-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #2e7d32;
+          color: #fff;
+          font-family: 'Inter', sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          padding: 13px 26px;
+          border-radius: 50px;
+          text-decoration: none;
+          border: none;
+          cursor: pointer;
+          transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0 4px 16px rgba(46, 125, 50, 0.3);
+          white-space: nowrap;
+        }
+        .ed-view-btn:hover {
+          background: #1b5e20;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(46, 125, 50, 0.4);
+        }
+        .ed-view-btn svg {
+          transition: transform 0.3s ease;
+        }
+        .ed-view-btn:hover svg {
+          transform: translateX(3px);
+        }
+
+        /* ─── Right scroll track ─── */
         .editorial-right {
           flex: 1;
-          min-width: 0; 
+          min-width: 0;
           display: flex;
-          gap: 32px; 
+          gap: 32px;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
           scroll-behavior: smooth;
-          padding-bottom: 40px; 
+          padding-bottom: 40px;
           padding-top: 40px;
-          margin-top: -40px; 
-          padding-right: 40px; 
-          
+          margin-top: -40px;
+          padding-right: 40px;
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
         .editorial-right::-webkit-scrollbar { display: none; }
 
-        /* ─── EXTRA CURVED Cards ─── */
+        /* ─── Cards ─── */
         .editorial-card-wrap {
-          flex: 0 0 400px; 
+          flex: 0 0 400px;
           height: 560px;
           scroll-snap-align: center;
           position: relative;
           background: #000;
-          border-radius: 32px; 
+          border-radius: 32px;
           overflow: hidden;
           box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-          
           opacity: 0;
           transform: translateX(40px);
           transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
-
-        .is-visible .editorial-card-wrap {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
+        .is-visible .editorial-card-wrap { opacity: 1; transform: translateX(0); }
         .is-visible .editorial-card-wrap:nth-child(1) { transition-delay: 0.1s; }
         .is-visible .editorial-card-wrap:nth-child(2) { transition-delay: 0.2s; }
         .is-visible .editorial-card-wrap:nth-child(3) { transition-delay: 0.3s; }
@@ -337,7 +344,7 @@ export default function ForestUI() {
         }
         .editorial-card-wrap:hover .editorial-image {
           transform: scale(1.06);
-          opacity: 0.6; 
+          opacity: 0.6;
         }
 
         .editorial-overlay {
@@ -355,7 +362,7 @@ export default function ForestUI() {
           flex-direction: column;
           justify-content: flex-end;
           color: #fff;
-          pointer-events: none; /* Let clicks pass through to the play button */
+          pointer-events: none;
         }
 
         .editorial-header {
@@ -374,21 +381,23 @@ export default function ForestUI() {
           color: rgba(255,255,255,0.9);
           background: rgba(0,0,0,0.4);
           padding: 6px 14px;
-          border-radius: 30px; 
+          border-radius: 30px;
           backdrop-filter: blur(8px);
         }
-        
+
         .ed-tag {
           font-size: 10px;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.1em;
+          color: #fff;
           background: rgba(255,255,255,0.15);
           padding: 6px 14px;
-          border-radius: 30px; 
+          border-radius: 30px;
           backdrop-filter: blur(8px);
         }
 
+        /* FIX: Prevent title from overflowing if it's too long */
         .ed-title {
           font-family: 'Lora', serif;
           font-size: 26px;
@@ -397,9 +406,17 @@ export default function ForestUI() {
           margin-bottom: 12px;
           transform: translateY(10px);
           transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+          
+          /* Safe wrapping */
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .editorial-card-wrap:hover .ed-title { transform: translateY(0); }
 
+        /* FIX: Prevent description from crossing the border when expanded */
         .ed-desc {
           font-family: 'Inter', sans-serif;
           font-size: 14.5px;
@@ -411,10 +428,16 @@ export default function ForestUI() {
           transform: translateY(10px);
           transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
           overflow: hidden;
+          
+          /* Force line breaks and ellipsis to prevent boundary breaking */
+          display: -webkit-box;
+          -webkit-line-clamp: 4; /* Keeps text to a maximum of 4 lines */
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
         }
         .editorial-card-wrap:hover .ed-desc {
           opacity: 1;
-          max-height: 120px; 
+          max-height: 150px; /* Slightly increased to give text safe room */
           transform: translateY(0);
         }
 
@@ -433,7 +456,7 @@ export default function ForestUI() {
           transform: translate(-50%, -50%);
           transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
           text-decoration: none;
-          z-index: 10; /* Ensure it stays clickable */
+          z-index: 10;
         }
         .ed-play-btn svg { width: 16px; height: 16px; fill: #fff; margin-left: 2px; }
         .editorial-card-wrap:hover .ed-play-btn {
@@ -443,9 +466,8 @@ export default function ForestUI() {
         }
         .editorial-card-wrap:hover .ed-play-btn svg { fill: #111; }
 
-        /* Responsive Breakpoints */
         @media (max-width: 900px) {
-          .nav-links { display: none; } 
+          .nav-links { display: none; }
           .editorial-container { flex-direction: column; align-items: flex-start; }
           .editorial-section { padding: 120px 0 80px 20px; }
           .editorial-left { flex: none; width: 100%; padding-right: 20px; }
@@ -453,15 +475,14 @@ export default function ForestUI() {
         @media (max-width: 600px) {
           .modern-nav { padding: 0 20px; }
           .editorial-card-wrap { flex: 0 0 85vw; height: 460px; }
+          .ed-view-btn { width: 100%; justify-content: center; }
         }
       `}</style>
 
       <div className="premium-ui">
-
-        {/* ─── Extra-Curved Stories Section ─── */}
         <section className={`editorial-section ${isVisible ? "is-visible" : ""}`} ref={sectionRef}>
           <div className="editorial-container">
-            
+
             <div className="editorial-left">
               <span className="editorial-tag">Field Dispatches</span>
               <h2 className="editorial-h2">
@@ -470,7 +491,8 @@ export default function ForestUI() {
               <p className="editorial-desc">
                 Every day on the frontlines brings a new challenge. Swipe through the firsthand accounts and unedited footage of our teams working to heal the wild, one life and one acre at a time.
               </p>
-              
+
+              {/* ─── Controls: arrows + View Our Stories button ─── */}
               <div className="ed-controls">
                 <button className="ed-btn left" onClick={() => scroll("left")} aria-label="Scroll Left">
                   <svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
@@ -478,6 +500,13 @@ export default function ForestUI() {
                 <button className="ed-btn right" onClick={() => scroll("right")} aria-label="Scroll Right">
                   <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
                 </button>
+
+                <a href="#stories" className="ed-view-btn">
+                  View Our Stories
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
               </div>
             </div>
 
@@ -492,12 +521,11 @@ export default function ForestUI() {
                     <span className="ed-tag">{story.tag}</span>
                   </div>
 
-                  {/* Render the play button as an active anchor link if it's a video */}
                   {story.type === "video" && story.videoUrl && (
-                    <a 
-                      href={story.videoUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={story.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="ed-play-btn"
                       aria-label={`Watch video: ${story.title}`}
                     >
