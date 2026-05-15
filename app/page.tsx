@@ -8,7 +8,6 @@ import FeaturedBanner from "./components/Banner";
 import GetInvolved from "./components/community";
 import DonationSection from "./components/donation";
 import Footer from "./components/Footer";
-import Gallery from "./components/Gallery";
 import ImpactStats from "./components/Counters";
 import FloatingSocials from "./components/utils/FloatingSocials";
 

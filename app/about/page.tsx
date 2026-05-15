@@ -1,42 +1,35 @@
-import React from "react";
-import Navbar from "@/components/Navbar";
-import FloatingSocials from "@/components/utils/FloatingSocials";
-import Footer from "@/components/Footer";
+import { Metadata } from 'next';
 
-// About Page Specific Components
-import AboutHero from "@/components/about/AboutHero";
-import AboutStats from "@/components/about/AboutStats";
-import MissionVision from "@/components/about/MissionVision";
-import OurTeam from "@/components/about/OurTeam";
-import HistoryTimeline from "@/components/about/HistoryTimeline";
+// utils import
+import Navbar from '../components/Navbar';
+import DonationSection from '../components/donation';
+import Footer from '../components/Footer';
 
-export const metadata = {
-  title: "About Us | 5F ECO Foundation",
-  description: "Learn about our mission to protect nature and wildlife.",
+// core sub-endpoint components import
+import AboutIntro from './_components/AboutIntro';
+import AboutHeader from './_components/Header';
+import AboutTimeline from './_components/AboutTimeline';
+import AboutDirectory from './_components/AboutDiscover';
+import AboutLogoMeaning from './_components/AboutLogoMeaning';
+
+
+export const metadata: Metadata = {
+  title: 'About Us | 5F ECO Foundation of India',
+  description: 'Pioneering advanced vulnerability research and decentralized protocol security.',
 };
 
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen bg-[#0a0d08] selection:bg-[#4d7c0f] selection:text-white">
-      
-      {/* 1. Global Navigation & Socials */}
+  
+    <main className="min-h-screen bg-black text-neutral-200 selection:bg-emerald-500/30 pb-20">
       <Navbar />
-      <FloatingSocials />
-
-      {/* 2. Hero Section (Parallax & Title) */}
-      <AboutHero />
-
-      {/* 3. Overlapping Glass Stats */}
-      <AboutStats />
-
-      {/* 4. Core Content Sections */}
-      <MissionVision />
-      <OurTeam />
-      <HistoryTimeline />
-
-      {/* 5. Global Footer */}
+      <AboutHeader />
+      <AboutIntro />
+      <AboutTimeline />
+      <AboutLogoMeaning />
+      <AboutDirectory />
+      <DonationSection />
       <Footer />
-      
     </main>
   );
 }
