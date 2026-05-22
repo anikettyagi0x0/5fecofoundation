@@ -63,7 +63,7 @@ export default function AboutIntro() {
           >
             <div className="relative aspect-square w-full max-w-[450px] rounded-[2rem] rounded-tl-[5rem] rounded-br-[5rem] overflow-hidden shadow-2xl border-[6px] border-white group">
               <img 
-                src="/hero/elephant-hero-image.png" // Placeholder: replace with actual NGO photo
+                src="/aboutUs/AboutIndex/about-image-2.jpg"
                 alt="NGO Impact in Action" 
                 className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
               />

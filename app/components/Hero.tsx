@@ -34,7 +34,7 @@ const HeroSection = () => {
       {/* ── LAYER 1: Background ── */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY, scale: 1.05 }}>
         <img
-          src="/hero/5feco-website-4.png"
+          src="index/hero/5feco-website-4.png"
           className="w-full h-full object-cover opacity-30 grayscale-[20%] contrast-[110%]"
           alt=""
         />
@@ -74,7 +74,7 @@ const HeroSection = () => {
           className="w-[clamp(350px,58vw,850px)]"
         >
           <img
-            src="/hero/elephant-hero-image.png"
+            src="index/hero/elephant-hero-image.png"
             className="w-full h-auto opacity-[0.95] drop-shadow-[0_15px_25px_rgba(0,0,0,0.5)]"
             alt="Elephant"
           />

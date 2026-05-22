@@ -15,7 +15,7 @@ export default function TeamHeader() {
       <div className="absolute inset-0 z-0">
         {/* Replace the src below with an image of your team in the field */}
         <img
-          src="/hero/team-hero-bg.png" 
+          src="/aboutUs/TeamPictures/team-image-header.jpg" 
           className="w-full h-full object-cover opacity-40 grayscale-[20%] contrast-[110%]"
           alt="Our Conservation Team"
         />

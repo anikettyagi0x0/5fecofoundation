@@ -79,7 +79,7 @@ export default function AboutStoriesRedirect() {
           >
             <div className="relative aspect-[4/3] rounded-2xl rounded-tl-[4rem] rounded-br-[4rem] overflow-hidden shadow-lg border-4 border-white group">
               <img 
-                src="https://images.unsplash.com/photo-1542640244-7e672d6cb466?q=80&w=1000&auto=format&fit=crop" 
+                src="/aboutUs/AboutIndex/about-image-3.jpg" 
                 alt="Our Team in the field" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />

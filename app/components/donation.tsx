@@ -344,7 +344,7 @@ export default function DonationSection() {
         
         {/* Replace with your actual background image URL */}
         <img 
-          src="donation-bg.jpg" 
+          src="/donation-bg.jpg" 
           alt="Deep forest landscape" 
           className="donation-bg"
         />

@@ -88,7 +88,7 @@ export default function FeaturedNews() {
                     /* FIX: Changed hover color to Forest Green (#4d7c0f) */
                     className="flex items-center justify-between w-full text-[#1a2e15] font-bold font-[family-name:var(--font-outfit)] text-[11px] uppercase tracking-[0.1em] group/btn hover:text-[#4d7c0f] transition-colors"
                   >
-                    Read Article
+                    Read News
                     {/* FIX: Arrow turns green and moves right on hover */}
                     <svg className="w-4 h-4 text-[#a8c69f] group-hover/btn:text-[#4d7c0f] group-hover/btn:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

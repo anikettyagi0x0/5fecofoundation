@@ -15,7 +15,7 @@ export default function AboutHeader() {
       <div className="absolute inset-0 z-0">
         {/* Replace the src below with your actual image path */}
         <img
-          src="/hero/5feco-website-4.png" 
+          src="/aboutUs/AboutIndex/about-image-1.jpg" 
           className="w-full h-full object-cover opacity-40 grayscale-[20%] contrast-[110%]"
           alt="Forest background"
         />
